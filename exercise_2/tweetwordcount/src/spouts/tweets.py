@@ -71,17 +71,18 @@ class Tweets(Spout):
 
     def next_tuple(self):
         try:
-            tweet = self.queue().get(timeout = 0.1) 
+            tweet = self.queue().get(timeout = 1.0) 
             if tweet:
                 self.queue().task_done()
                 self.emit([tweet])
  
         except Queue.Empty:
             self.log("Empty queue exception ")
-            time.sleep(0.1) 
+            time.sleep(0.3) 
 
     def ack(self, tup_id):
         pass  # if a tuple is processed properly, do nothing
 
     def fail(self, tup_id):
+        self.log("Failed tuple exception ")
         pass  # if a tuple fails to process, do nothing
