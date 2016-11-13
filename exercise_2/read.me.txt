@@ -1,2 +1,13 @@
-Running instructions
-====================
+#Running instructions
+#====================
+#prerequisits:
+#	Log into an EC2 with AIM based on UCB MIDS W205 EX2-FULL.
+#	Make sure your postgres DBMS is running.
+
+# run the following commans:
+# Note: connection to postgress will use the default credential from the AIM.
+#       The tweetwordcount table will be created if it does not already exist.
+
+git clone https://github.com/roygv/w205-fall-16-labs-exercises.git
+cd w205-fall-16-labs-exercises/exercise_2/tweetwordcount
+streamparse run
