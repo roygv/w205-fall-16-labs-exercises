@@ -20,9 +20,6 @@ class WordCounter(Bolt):
             self.cur.execute("""CREATE TABLE Tweetwordcount
                                 (word TEXT PRIMARY KEY     NOT NULL,
                                  count INT     NOT NULL);""")
-            #self.cur.execute("""
-	    #			CREATE UNIQUE INDEX tweetwordcount_pkey 
-	    #			ON tweetwordcount USING btree (word);""")
             self.cur.execute("""
                                 CREATE INDEX tweetwordcount_count 
                                 ON tweetwordcount USING btree (count);""")
@@ -41,7 +38,7 @@ class WordCounter(Bolt):
         if self.counts[word] == 1:
             self.cur.execute("INSERT INTO tweetwordcount (word,count) VALUES (%s, %s)", (word,1))
         else:
-            self.cur.execute("UPDATE tweetwordcount SET count=%s WHERE word=%s", (self.counts[word], word))
+            self.cur.execute("UPDATE tweetwordcount SET count=count+1 WHERE word=%s", (word,))
         self.conn.commit()
 
 	if self.counts[word] > 0: 
